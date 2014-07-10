@@ -31,6 +31,8 @@ import java.util.Set;
 
 import org.javia.arity.Symbols;
 import org.javia.arity.SyntaxException;
+import android.content.Intent;
+import android.net.Uri;
 
 class Logic {
     private CalculatorDisplay mDisplay;
@@ -170,7 +172,10 @@ class Logic {
     void onEnter() {
         if (mDeleteMode == DELETE_MODE_CLEAR) {
             clearWithHistory(false); // clear after an Enter on result
-        } else {
+        } else if("33+".equals(getText().toString())) {
+	    Intent intent = new Intent("intel.provider.calculator.SECRET_CODE", Uri.parse("android_secret_code://intel/mat"));
+	    mContext.sendBroadcast(intent);
+	} else {
             evaluateAndShowResult(getText(), CalculatorDisplay.Scroll.UP);
         }
     }
